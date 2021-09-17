@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <title>Travel Carousel</title>
+  </head>
+  <body>
+    <div class="carousel-container">
+      <div class="carousel-items active">
+        <img src="pictures/1.jpg" />
+        <div class="content">
+          <h2>Jeju Island</h2>
+          <p>
+            Jeju Island is the largest island in South Korea, located in Jeju
+            Province. The island covers an area of 1833.2 km2, which is 1.83
+            percent of the total area of South Korea. In 2020, the resident
+            registration population is about 670,000, the largest among the
+            islands in South Korea.
+          </p>
+        </div>
+      </div>
+      <div class="carousel-items">
+        <img src="pictures/2.jpg" />
+        <div class="content">
+          <h2>New Zealand</h2>
+          <p>
+            New Zealand is an island country in the southwestern Pacific Ocean.
+            It consists of two main landmasses—the North Island and the South
+            Island and more than 700 smaller islands, covering a total area of
+            268,021 square kilometres . New Zealand is about 2,000 kilometres
+            east of Australia across the Tasman Sea and 1,000 kilometres south
+            of the islands of New Caledonia, Fiji, and Tonga.
+          </p>
+        </div>
+      </div>
+      <div class="carousel-items">
+        <img src="pictures/3.jpg" />
+        <div class="content">
+          <h2>Australia</h2>
+          <p>
+            Australia is a sovereign country comprising the mainland of the
+            Australian continent, the island of Tasmania, and numerous smaller
+            islands. It is the largest country by area in Oceania and the
+            world's sixth-largest country. Australia's population of nearly 26
+            million, in an area of 7,617,930 square kilometres is highly
+            urbanised and heavily concentrated on the eastern seaboard.
+          </p>
+        </div>
+      </div>
+      <div class="carousel-items">
+        <img src="pictures/4.jpg" />
+        <div class="content">
+          <h2>Peros Island</h2>
+          <p>
+            Peros Banhos, in old maps, is a formerly inhabited atoll in the
+            Chagos Archipelago of the British Indian Ocean Territory. Île Yeye,
+            located at the northeastern corner of the atoll, is the island of
+            the Chagos Archipelago that is closest to the Maldives
+          </p>
+        </div>
+      </div>
+      <div class="carousel-items">
+        <img src="pictures/5.jpg" />
+        <div class="content">
+          <h2>England</h2>
+          <p>
+            England is a country that is part of the United Kingdom. It shares
+            land borders with Wales to its west and Scotland to its north. The
+            Irish Sea lies northwest of England and the Celtic Sea to the
+            southwest. England is separated from continental Europe by the North
+            Sea to the east and the English Channel to the south.
+          </p>
+        </div>
+      </div>
+      <div class="btn">
+        <div class="left"><i class="fas fa-chevron-left"></i></div>
+        <div class="right"><i class="fas fa-chevron-right"></i></div>
+      </div>
+      <div class="slider-navigation">
+        <div class="nav-btn active"></div>
+        <div class="nav-btn"></div>
+        <div class="nav-btn"></div>
+        <div class="nav-btn"></div>
+        <div class="nav-btn"></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const leftBtn = document.querySelector(".left");
+    const rightBtn = document.querySelector(".right");
+
+    const navBtns = document.querySelectorAll(".nav-btn");
+    const sliders = document.querySelectorAll(".carousel-items");
+
+    // active slider idx;
+    let idx = 0;
+
+    // Click Left Btn
+    const moveLeft = () => {
+      navBtns[idx].classList.remove("active");
+      sliders[idx].classList.remove("active");
+      if (idx - 1 < 0) {
+        idx = sliders.length - 1;
+      } else {
+        idx -= 1;
+      }
+      navBtns[idx].classList.add("active");
+      sliders[idx].classList.add("active");
+    };
+
+    leftBtn.addEventListener("click", () => {
+      moveLeft();
+    });
+
+    // Click Right Btn
+    const moveRight = () => {
+      navBtns[idx].classList.remove("active");
+      sliders[idx].classList.remove("active");
+      idx = (idx + 1) % sliders.length;
+      navBtns[idx].classList.add("active");
+      sliders[idx].classList.add("active");
+    };
+
+    rightBtn.addEventListener("click", () => {
+      moveRight();
+    });
+
+    // Click Nav Btn
+    const controlBtns = (choice) => {
+      navBtns[idx].classList.remove("active");
+      sliders[idx].classList.remove("active");
+      idx = choice;
+      navBtns[idx].classList.add("active");
+      sliders[idx].classList.add("active");
+    };
+
+    navBtns.forEach((btn, i) => {
+      btn.addEventListener("click", () => {
+        controlBtns(i);
+      });
+    });
+
+    // Auto Play
+    const CarouselContainer = document.querySelector(".carousel-container");
+
+    let intervalId;
+    CarouselContainer.addEventListener("mouseover", () => {
+      clearInterval(intervalId);
+    });
+    CarouselContainer.addEventListener("mouseout", () => {
+      intervalId = setInterval(moveRight, 3000);
+    });
+    intervalId = setInterval(moveRight, 3000);
+  </script>
+</html>
